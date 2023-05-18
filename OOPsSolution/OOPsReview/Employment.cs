@@ -189,5 +189,47 @@ namespace OOPsReview
             }
             StartDate = startdate;
         }
+
+        //Behaviours (a.k.a. methods)
+        //a method consists of a header (accesslevel rdt methodname ([list of parameters])
+        //                     a coding block     { ....... }
+
+        public void SetEmploymentResponsiblityLevel(SupervisoryLevel level)
+        {
+            //the property has a private set
+            //therefore the only ways to assign a value to the Property
+            //   is either: via the constructor are creation time
+            //          or: via a public method within the class
+            //
+            //what about validation the value?
+            //validation can be done in multiple places
+            //   a) can it be done in this method: Yes
+            //   b) can it be done in the property: Yes if property fully implement
+            Level = level;
+        }
+
+        public void CorrectStartDate(DateTime startdate)
+        {
+            //the StartDate property is an auto implemented property
+            //The StartDate property has NO validation code
+            //You need to do any validation on the incoming value
+            //  wherever you plan to alter the existing value in the class
+            if (startdate >= DateTime.Today.AddDays(1))
+            {
+                throw new ArgumentException($"The start date {startdate} is in the future");
+            }
+            StartDate = startdate;
+        }
+
+        public void UpdateCurrentEmploymentYearsExperince()
+        {
+            TimeSpan span = DateTime.Now - StartDate;
+            Years = Math.Round((span.Days / 365.25), 1);
+        }
+        
+        public override string ToString()
+        {
+            return $"{Title},{Level},{StartDate.ToString("MMM dd, yyyy")},{Years}";
+        }
     }
 }
