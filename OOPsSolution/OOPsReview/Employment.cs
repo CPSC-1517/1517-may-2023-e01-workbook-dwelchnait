@@ -106,7 +106,7 @@ namespace OOPsReview
                 //if ( value < 0 ) //using a Utilities generic method to do this test
                 if (!Utilities.IsZeroOrPositive(value))
                 {
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(value.ToString());
                 }
                 _Years = value;
             }
@@ -188,6 +188,15 @@ namespace OOPsReview
                 throw new ArgumentException($"The start date {startdate} is in the future");
             }
             StartDate = startdate;
+            if (years > 0.0)
+            {
+                Years = (double)years;
+            }
+            else
+            {
+                TimeSpan span = DateTime.Now - StartDate;
+                Years = Math.Round((span.Days / 365.25), 1);
+            }
         }
 
         //Behaviours (a.k.a. methods)
@@ -221,10 +230,11 @@ namespace OOPsReview
             StartDate = startdate;
         }
 
-        public void UpdateCurrentEmploymentYearsExperince()
+        public double UpdateCurrentEmploymentYearsExperince()
         {
             TimeSpan span = DateTime.Now - StartDate;
             Years = Math.Round((span.Days / 365.25), 1);
+            return Years;
         }
         
         public override string ToString()
