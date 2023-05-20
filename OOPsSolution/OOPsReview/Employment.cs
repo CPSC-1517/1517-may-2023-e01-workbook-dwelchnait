@@ -148,7 +148,7 @@ namespace OOPsReview
             //     Employment myInstance = new Employment();
             //A practice that I personally use is to avoid referring my data members directly
             //  specially if the property contains validation
-            Title = "Unknown";
+            Title ="Unknown";
             Level = SupervisoryLevel.TeamMember;
             StartDate = DateTime.Today;
             //optionally one could set years to zero, but that is the system default
