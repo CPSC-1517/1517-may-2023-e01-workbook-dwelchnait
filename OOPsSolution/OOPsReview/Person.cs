@@ -11,17 +11,28 @@ namespace OOPsReview
         private string _FirstName;
         private string _LastName;
 
-        public string FirstName { get; set; }
+        public string FirstName 
+        {
+            get { return _FirstName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("first name is requried");
+                }
+                _FirstName = value;
+            } 
+        }
         public string LastName { get; set; }
         public Residence Address { get; set; }
         public List<Employment> EmploymentPositions { get; set; } = new List<Employment>();
 
         public Person(string firstname, string lastname, Residence address, List<Employment> employmentpositions)
         {
-            if (string.IsNullOrWhiteSpace(firstname))
-            {
-                throw new ArgumentNullException("first name is requried");
-            }
+            //if (string.IsNullOrWhiteSpace(firstname))
+            //{
+            //    throw new ArgumentNullException("first name is requried");
+            //}
             if (string.IsNullOrWhiteSpace(lastname))
             {
                 throw new ArgumentNullException("last name is requried");

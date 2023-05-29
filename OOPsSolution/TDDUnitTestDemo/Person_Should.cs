@@ -109,28 +109,31 @@ namespace TDDUnitTestDemo
             action.Should().Throw<ArgumentNullException>();
         }
 
-        //[Theory]
-        //[InlineData(null)]
 
-        //[InlineData("")]
+        //changing the firstname via the FirstName property
+        //validation firstname is required.
+        [Theory]
+        [InlineData(null)]
 
-        //[InlineData("    ")]
+        [InlineData("")]
 
-        //public void Throw_Expection_When_Setting_FirstName_To_Missing_Data(string firstname)
-        //{
-        //    //Arrange (setup)
-        //    string lastname = "welch";
-        //    Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-        //    string expectedaddress = "123,Maple St.,Edmonton,AB,T6Y7U8";
-        //    Person me = new Person("unknown", lastname, address, null);
-        //    string expectedfirstname = "unknown";
+        [InlineData("    ")]
 
-        //    //Act (execution) (sut subject under test)
-        //    Action action = () => new Person(firstname, lastname, address, null);
+        public void Throw_Expection_When_Setting_FirstName_To_Missing_Data(string changename)
+        {
+            //Arrange (setup)
+            string firstname = "don";
+            string lastname = "welch";
+            Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            Person me = new Person(firstname, lastname, address, null);
+            
 
-        //    //Assert (testing of the action)
-        //    action.Should().Throw<ArgumentNullException>();
-        //}
+            //Act (execution) (testing will the property capture an invalid name change)
+            Action action = () => me.FirstName = changename;
+
+            //Assert (testing of the action)
+            action.Should().Throw<ArgumentNullException>();
+        }
         #endregion
     }
 }
