@@ -64,3 +64,14 @@ switch (myHome.Province.ToLower())
             break;
         }
 }
+
+//what would a person need to do if unit testing does not exists
+string firstname = "don";
+string lastname = "welch";
+Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+Person me = new Person(firstname, lastname, address, null);
+
+//conside doing a loop where I make changes to the "changename", include try catch error handling
+//also need a interface of Console prompt and read lines.
+
+//me.FirstName = changename;

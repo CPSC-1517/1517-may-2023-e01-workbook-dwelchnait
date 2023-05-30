@@ -18,25 +18,30 @@ namespace OOPsReview
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException("first name is requried");
+                    throw new ArgumentNullException("first name is required");
                 }
                 _FirstName = value;
             } 
         }
-        public string LastName { get; set; }
+        public string LastName
+        {
+            get { return _LastName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("last name is required");
+                }
+                _LastName = value;
+            }
+        }
         public Residence Address { get; set; }
         public List<Employment> EmploymentPositions { get; set; } = new List<Employment>();
 
         public Person(string firstname, string lastname, Residence address, List<Employment> employmentpositions)
         {
-            //if (string.IsNullOrWhiteSpace(firstname))
-            //{
-            //    throw new ArgumentNullException("first name is requried");
-            //}
-            if (string.IsNullOrWhiteSpace(lastname))
-            {
-                throw new ArgumentNullException("last name is requried");
-            }
+            
+          
             FirstName = firstname;
             LastName = lastname;
             Address = address;
@@ -52,6 +57,12 @@ namespace OOPsReview
             FirstName = "unknown";
             LastName = "unknown";
 
+        }
+
+        public void ChangeName(string firstname, string lastname)
+        {
+            FirstName = firstname;
+            LastName = lastname;
         }
     }
 }
