@@ -5,6 +5,15 @@ namespace TDDUnitTestDemo
 {
     public class Person_Should
     {
+        public Person Make_SUT_Instance()
+        {
+            string firstname = "don";
+            string lastname = "welch";
+            Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            Person me = new Person(firstname, lastname, address, null);
+            return me;
+        }
+
         #region Valid Data
         //Attribute title
         //  Fact which does one test and is usually setup and coded within the test
@@ -51,12 +60,7 @@ namespace TDDUnitTestDemo
         public void Change_FirstName_To_New_Name()
         {
             //Arrange (setup)
-            string firstname = "don";
-            string lastname = "welch";
-            Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            string expectedaddress = "123,Maple St.,Edmonton,AB,T6Y7U8";
-            Person me = new Person(firstname, lastname, address, null);
-
+            Person me = Make_SUT_Instance();
             string expectedfirstname = "bob";
 
             // Act
@@ -71,11 +75,8 @@ namespace TDDUnitTestDemo
         public void Change_LastName_To_New_Name()
         {
             //Arrange (setup)
-            string firstname = "don";
-            string lastname = "welch";
-            Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            string expectedaddress = "123,Maple St.,Edmonton,AB,T6Y7U8";
-            Person me = new Person(firstname, lastname, address, null);
+            
+            Person me = Make_SUT_Instance();
 
             string expectedlastname = "smith";
 
@@ -91,10 +92,8 @@ namespace TDDUnitTestDemo
         public void Change_Both_First_And_Last_Name_To_New_Name()
         {
             //Arrange (setup)
-            string firstname = "don";
-            string lastname = "welch";
-            Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            Person me = new Person(firstname, lastname, address, null);
+          
+            Person me = Make_SUT_Instance();
             string expectedfirstname = "pat";
             string expectedlastname = "smith";
 
@@ -106,7 +105,95 @@ namespace TDDUnitTestDemo
             me.LastName.Should().Be(expectedlastname);
 
         }
+
+        [Fact]
+        public void Return_The_FullName_of_Person()
+        {
+            //Arrange (setup)
+          
+            Person sut = Make_SUT_Instance();
+            string expectedfullname = "welch, don";
+
+
+            //Act (execution)
+            string actual = sut.FullName;
+
+            //Assert (testing of the action)
+            actual.Should().Be(expectedfullname);
+           
+        }
+
+        [Fact]
+        public void Return_The_Number_Of_Employment_Instances_For_New_Person()
+        {
+            //Arrange (setup)
+            //no employment instances
+            Person sut = Make_SUT_Instance();
+
+
+
+            //Act (execution)
+            int actual = sut.NumberOfEmployments;
+
+            //Assert (testing of the action)
+            actual.Should().Be(0);
+
+        }
+
+        [Fact]
+        public void Add_First_Employment_Instance()
+        {
+            //Arrange (setup)
+            //no employment instances
+            Person sut = Make_SUT_Instance();
+            int expectednumberofemployment = 1;
+
+            Employment employment = new Employment("TDD member", SupervisoryLevel.TeamMember, new DateTime(2018, 03, 10));
+           
+            //Act (execution)
+            sut.AddEmployment(employment);
+
+
+            //Assert (testing of the action)
+            sut.NumberOfEmployments.Should().Be(expectednumberofemployment);
+            sut.EmploymentPositions[0].ToString().Should().Be(employment.ToString());
+        }
+
+        [Fact]
+        public void Add_Another_Employment_Instance()
+        {
+            //Arrange (setup)
+            //no employment instances
+
+            string firstname = "don";
+            string lastname = "welch";
+            Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
         
+            List<Employment> employments = new List<Employment>();
+            Employment emp1 = new Employment("TDD member", SupervisoryLevel.TeamMember, new DateTime(2016, 03, 10));
+            Employment emp2 = new Employment("TDD Lead", SupervisoryLevel.TeamLeader, new DateTime(2020, 03, 10));
+            employments.Add(emp1);
+            employments.Add(emp2);
+            Person sut = new Person(firstname, lastname, address, employments);
+
+            Employment employment = new Employment("TDD Supervisor", SupervisoryLevel.Supervisor, new DateTime(2023, 03, 10));
+
+            int expectednumberofemployment = 3;
+            List<Employment> expectedemployments = new List<Employment>()
+            {
+                emp1,
+                emp2,
+                employment
+            };
+
+            //Act (execution)
+            sut.AddEmployment(employment);
+
+
+            //Assert (testing of the action)
+            sut.NumberOfEmployments.Should().Be(expectednumberofemployment);
+            sut.EmploymentPositions.Should().ContainInConsecutiveOrder(expectedemployments);
+        }
         #endregion
 
         #region Invalid Data
@@ -144,10 +231,8 @@ namespace TDDUnitTestDemo
         public void Throw_Expection_When_Setting_FirstName_To_Missing_Data(string changename)
         {
             //Arrange (setup)
-            string firstname = "don";
-            string lastname = "welch";
-            Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            Person me = new Person(firstname, lastname, address, null);
+           
+            Person me = Make_SUT_Instance();
             
 
             //Act (execution) (testing will the property capture an invalid name change)
@@ -174,10 +259,8 @@ namespace TDDUnitTestDemo
         public void Throw_Expection_When_Setting_LastName_To_Missing_Data(string changename)
         {
             //Arrange (setup)
-            string firstname = "don";
-            string lastname = "welch";
-            Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            Person me = new Person(firstname, lastname, address, null);
+            
+            Person me = Make_SUT_Instance();
 
 
             //Act (execution) (testing will the property capture an invalid name change)
@@ -204,10 +287,8 @@ namespace TDDUnitTestDemo
         public void Throw_Expection_When_Changing_First_And_Last_Name(string changefirstname, string changelastname)
         {
             //Arrange (setup)
-            string firstname = "don";
-            string lastname = "welch";
-            Residence address = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            Person me = new Person(firstname, lastname, address, null);
+          
+            Person me = Make_SUT_Instance();
 
 
 
@@ -217,6 +298,26 @@ namespace TDDUnitTestDemo
             //Assert (testing of the action)
             action.Should().Throw<ArgumentNullException>().WithMessage("*is required*");
         }
+
+        [Fact]
+        public void Throw_Expection_When_Adding_Null_Employment_Instance()
+        {
+            //Arrange (setup)
+            //no employment instances
+            Person sut = Make_SUT_Instance();
+           
+
+            Employment employment = new Employment("TDD member", SupervisoryLevel.TeamMember, new DateTime(2018, 03, 10));
+
+            //Act (execution)
+            Action action = () => sut.AddEmployment(null);
+
+
+            //Assert (testing of the action)
+            action.Should().Throw<ArgumentNullException>().WithMessage("*required*");
+        }
+
+
         #endregion
     }
 }

@@ -38,6 +38,10 @@ namespace OOPsReview
         public Residence Address { get; set; }
         public List<Employment> EmploymentPositions { get; set; } = new List<Employment>();
 
+        public string FullName { get { return LastName + ", " + FirstName; } }
+
+        public int NumberOfEmployments { get { return EmploymentPositions.Count(); } }
+
         public Person(string firstname, string lastname, Residence address, List<Employment> employmentpositions)
         {
             
@@ -52,6 +56,8 @@ namespace OOPsReview
          
         }
 
+        
+
         public Person()
         {
             FirstName = "unknown";
@@ -63,6 +69,15 @@ namespace OOPsReview
         {
             FirstName = firstname;
             LastName = lastname;
+        }
+
+        public void AddEmployment(Employment employment)
+        {
+            if (employment == null)
+            {
+                throw new ArgumentNullException("Employment record position is required.");
+            }
+            EmploymentPositions.Add(employment);
         }
     }
 }
