@@ -85,6 +85,16 @@ Person ReadAsJson(string filepathname)
         //they are NOT case sensitive
         //they do not have to be in the same phyiscal order as the
         //  json string
+
+        //IMPORTANT 
+        // if your classes have a default constructor AND
+        //      a greedy constructor; JSON deserialize
+        //      will choice the default constructor
+        // if you cannot remove the default constructor then
+        //      you will need to place the json attribute [JsonConstructor]
+        //      in front the of greedy constructor so that
+        //      the greedy constructor is the one used.
+
         person = JsonSerializer.Deserialize<Person>(jsonstring);
     }
     catch (Exception ex)
