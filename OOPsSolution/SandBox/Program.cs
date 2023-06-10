@@ -1,13 +1,100 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using OOPsReview;
+using System.Text.Json;  //for Json serialization namespace
 
 Console.WriteLine("Hello, World!");
 
 //driver code
 //RecordSamples();
 //RefactorSample();
+//FileIOCSV();
 
-FileIOCSV();
+//explore JSon files writing and reading
+//create a Person instance with name, address and employments
+Person me = CreatePerson();
+DisplayPerson(me);
+
+//file path C:\Temp\PersonData.json
+string filepathname = @"C:\Temp\PersonData.json";
+SaveAsJson(me, filepathname);
+Person jsonMe = ReadAsJson(filepathname);
+DisplayPerson(jsonMe);
+
+Person CreatePerson()
+{
+    Residence myHome = new Residence(123, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+    List<Employment> employments = Read_Employment_Collection_From_CSV();
+    Person person = new Person("don", "welch", myHome, employments);
+    return person; 
+}
+void DisplayPerson(Person person)
+{
+    Console.WriteLine("\nPerson Data\n");
+    Console.WriteLine($"Name: {person.FullName}");
+    Console.WriteLine($"Residence: {person.Address.ToString()}");
+    Console.WriteLine("\nEmployments");
+    foreach(var item in person.EmploymentPositions)
+    {
+        Console.WriteLine($"\t{item.ToString()}");
+    }
+}
+void SaveAsJson(Person person, string filepathname)
+{
+    //the term use to write Json files is Serialization
+    //the classes used are referred to as serializers
+    //with writing we can make the file produce more readble format
+    //  using indentation
+    //JSon is very good at using objects and properties; HOWEVER,
+    //  it needs help/prompting to work better with fields
+    //to help with public fields with a class add an annotation (attributes title)
+    //  in front of the field declaraton called [JsonInclude]
+    //  also the namespace: using System.Text.Json.Serialization;
+    //  example: Assume class has a public string called FieldNotAProperty
+    //    [JsonInclude]
+    //    public string FieldNotAProperty;
+
+    //create options to use during serialization
+    JsonSerializerOptions options = new JsonSerializerOptions
+    {
+        //during this instance creation, you can refer to properties
+        //  within the class directly by name and assign a value to that property
+        WriteIndented = true,
+        IncludeFields = true   //this is for the public non property fields of a class
+    };
+
+    //remember to case the Serialize<T> to the appropriate class definition
+    //this converts your instance  to a join string
+    string jsonstring = JsonSerializer.Serialize<Person>(person, options);
+
+    //write the json string out to a .json text file
+    File.WriteAllText(filepathname, jsonstring);
+}
+
+Person ReadAsJson(string filepathname)
+{
+    Person person = null;
+    try
+    {
+        //bring in the json text file
+        string jsonstring = File.ReadAllText(filepathname);
+
+        //use the deseralizer to unpack the json string into
+        //  the expected structure <Person>
+        //it is IMPORTANT that the greedy constructor parameter names
+        //  are identical to the attribute names used in the json string
+        //they are NOT case sensitive
+        //they do not have to be in the same phyiscal order as the
+        //  json string
+        person = JsonSerializer.Deserialize<Person>(jsonstring);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+
+    return person;
+}
+
 
 void FileIOCSV()
 {
@@ -27,7 +114,6 @@ void FileIOCSV()
 
     DumpEmployments(employmentsRead);
 }
-
 List<Employment> Read_Employment_Collection_From_CSV()
 {
     //use the File class to append text records into a file
@@ -36,7 +122,7 @@ List<Employment> Read_Employment_Collection_From_CSV()
     //   
 
     //file path C:\Temp\EmploymentData.txt
-    string filepathname = @"C:\Bob\EmploymentData.txt";
+    string filepathname = @"C:\Temp\EmploymentData.txt";
 
     Employment employmentInstance = null;
     List<Employment> employmentCollection = new List<Employment>();
@@ -82,7 +168,6 @@ List<Employment> Read_Employment_Collection_From_CSV()
     return employmentCollection;
  
 }
-
 void Write_Employment_Collection_To_CSV(List<Employment> employments)
 {
     //use the File class to append text records into a file
@@ -103,7 +188,6 @@ void Write_Employment_Collection_To_CSV(List<Employment> employments)
     //.AppendAllLines
     File.AppendAllLines(filepathname, employmentCollectionAsStrings);
 }
-
 void DumpEmployments(List<Employment> employments)
 {
     Console.WriteLine("\n\t\tDump of employment instances\n");

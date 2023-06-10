@@ -123,6 +123,8 @@ namespace OOPsReview
         //using a public or private set is a design decision
         public DateTime StartDate { get; private set; }
 
+       
+
         // Constructors
         //
         // the purpose of a constructor is to create an instance of your class
