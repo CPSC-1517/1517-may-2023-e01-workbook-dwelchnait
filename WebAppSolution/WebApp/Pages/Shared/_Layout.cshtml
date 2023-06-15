@@ -3,14 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApp</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*
+        add the link to Holiday.css https://holidaycss.js.org
+    *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/holiday.css@0.11.0" asp-append-version="true" />
+    
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @*
+        demo showing how to add your own css class
+    <link rel="stylesheet" href="~/css/myCSS.css" asp-append-version="true" />*@
     <link rel="stylesheet" href="~/WebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+       @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">WebApp</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -28,22 +36,36 @@
                     </ul>
                 </div>
             </div>
+        </nav>*@
+        <nav>
+            <ul>
+                <!-- this is the root of the menu (top level)-->
+                <li><a asp-area="" asp-page="/Index"><strong>Wep App</strong></a></li>
+                <li><a asp-area="" asp-page="/Index">Home</a></li>
+                <li><a asp-area="" asp-page="/Privacy">Privacy</a></li>
+            </ul>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    @*
+        using Holiday.css basically means removing all bootstrap classes in your HTML
+        there are some bootstrap classes that do not affect Holiday.css
+        by removing the class references for bootstrap, you css is referred as a classless css
+        NOTE: this do NOT mean you CANNOT have your own classes in your own css code
+    *@
+    <div>
+        <main>
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer>
+        <div>
+            &copy; 2023 - Don Welch - CPSC1517 Nait Course (all rights reserved) <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  @*  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
