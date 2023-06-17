@@ -1,0 +1,45 @@
+﻿@page
+@model WebApp.Pages.Samples.BasicDataManagementModel
+@{
+    ViewData["Title"] = "Basic Data Management";
+   
+}
+
+<h1>Basic Data Management</h1>
+<blockquote>This page will explore the most common controls you will probably use on a form. There will be 
+    multiple buttons (events) to code in the PageModel (a.k.a Code-Behind). The controls will be a mix of
+    label, input, select, textarea and button.
+</blockquote>
+
+@*
+
+Controls: label, input, select, textarea and button
+
+<label> does not need arguments
+        can have helper tags: asp-for, asp-attributes, asp-validation-for
+        depending on css stylesheets, you can get different looks
+
+<input> this is your major control to use for data input
+        it can be set to various types of input data using the attribute type="xxxx"
+        can tie the control to a property on the PageModel using asp-for="xxxx"
+           where xxx is the name of the property on the PageModel
+        the step atrribute is used in indicate the number of decimal places to allowed for
+           your value. The default is 1 (integer stepping). If you want to allow decimal places
+           then you need to set the step attribute to a value less than 1 (ie 0.01)
+
+<textarea> use to accept form input for large amounts of text (ie comments)
+           can tie the control to a property on the PageModel using asp-for="xxxx"
+              where xxx is the name of the property on the PageModel
+           can set the rows and cols attributes to control the size of the textarea
+*@
+
+<form method="post">
+    <label>
+        Enter a number:
+        <input type="number" asp-for="Num" step="0.01"/>
+    </label>
+    <label>
+        TextArea for large amounts of text (ie comments):
+        <textarea asp-for="MassText" rows="5" cols="60"></textarea>
+    </label>
+</form>
