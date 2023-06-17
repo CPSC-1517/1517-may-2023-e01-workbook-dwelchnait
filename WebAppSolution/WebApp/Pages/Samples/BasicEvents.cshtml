@@ -12,3 +12,42 @@
 {
     <p>@Model.FeedBack</p>
 }
+
+@* 
+****************************************************************************
+ <form> arguments: method - indicates how data is transferred to server
+                            get - visible on URL in plain text
+                            post - not visible on URL, embedded within the form objects
+                                    sent to server in the body of the request
+                    action - directs the server to the page to process the form
+                             optional
+                             missing or = "" - directs to the same page
+                             can be a relative or absolute URL
+
+<button> three types
+            submit: sends the form to the server for processing
+            reset: clears the form and does not send to server
+            button: ???
+
+Events: OnGet(): executes when the page first is constructed
+               : executes if method="get" is specified in the <form> tag
+        OnPost(): executes when the form is submitted
+                : executes if method="post" is specified in the <form> tag
+                : is the default event if no specific event is specified by asp-page-handler
+        OnPostxxxxxxx(): executes when the form is submitted
+                         : executes if method="post" is specified in the <form> tag
+                        : executes if asp-page-handler="xxxxxxx" is specified in the <button> tag
+                        : page-handlers are used when there are multiple buttons on the form
+                        : adding a page-handler to your submit button overrides the default OnPost() event
+                          and executes the OnPostxxxxxxx() event instead that is code in your PageModel class
+
+**************************************************************************** 
+*@
+<form method="post">
+   @* <button type="submit">Press me (submit form to default OnPost event code)</button>*@
+    <button type="submit" asp-page-handler="FirstButton">Press me (submit form to default OnPost event code)</button>
+    &nbsp;&nbsp;
+    <button type="submit" asp-page-handler="SecondButton">
+        Press me (submit form to OnPostSecondButton event code)
+    </button>
+</form>
