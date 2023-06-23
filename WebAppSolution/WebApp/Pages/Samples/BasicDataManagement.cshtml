@@ -51,6 +51,36 @@ Controls: label, input, select, textarea and button
                             the text displayed in the list
                       yyyy is the text to be displayed in the list
 *@
+@*
+    the following is a setup that allows the display of recorded errors
+       saved within your PageModel when you use ModelState. The method used
+       to save each error is .AddModelError(xxxx).
+    it will automatically format your errors in a nice list using asp-validation-summary
+
+    an alternative is for you to do your own coding
+    in this case your will need
+    a) a property in your PageModel (List<string> ErrorList)
+    b) you would have to code your own loop containing an unordered list. Each <li> would 
+        represent an error line
+*@
+
+<div asp-validation-summary="All" >
+    @if (ModelState.ErrorCount > 0)
+    {
+        <p>Please review the following concerns to correct your submission:</p>
+    }
+
+    @if(Model.ErrorList.Count() > 0)
+    {
+        <p>Please review the following concerns to correct your submission:</p>
+        <ul>
+            @foreach(var error in Model.ErrorList)
+            {
+                <l1>@error</l1>
+            }
+        </ul>
+    }
+</div>
 
 <form method="post">
     <label>

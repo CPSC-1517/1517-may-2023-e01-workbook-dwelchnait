@@ -32,16 +32,23 @@ namespace WebApp.Pages.Samples
         public string FavouriteCourseNoValueOnOption { get; set; } //using string text from select
 
         public string FeedBack { get; set; } //one way property for messages
+
+        //this is an example of you managing the collection of errors on the form yourself
+        //The List is a list of errors collected during your validation
+        public List<string> ErrorList { get; set; } = new List<string>();
+
         public void OnGet()
         {
         }
 
         public void OnPostControlProcessing()
         {
-            FeedBack = $"Number value is {Num}"
-                     + $" Mass text is {MassText}"
-                + $" Favourite course with value is {FavouriteCourse}"
-                + $" Favourite course without value is {FavouriteCourseNoValueOnOption}";
+            //FeedBack = $"Number value is {Num}"
+            //         + $" Mass text is {MassText}"
+            //    + $" Favourite course with value is {FavouriteCourse}"
+            //    + $" Favourite course without value is {FavouriteCourseNoValueOnOption}";
+
+
         }
     }
 }
