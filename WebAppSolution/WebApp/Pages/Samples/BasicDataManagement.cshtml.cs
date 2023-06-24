@@ -48,7 +48,20 @@ namespace WebApp.Pages.Samples
             //    + $" Favourite course with value is {FavouriteCourse}"
             //    + $" Favourite course without value is {FavouriteCourseNoValueOnOption}";
 
+            if (Num < 0)
+            {
+                //using ModelState
+                ModelState.AddModelError("",$"Num value of {Num} cannot be negative");
 
+                //managing your own errors
+                ErrorList.Add($"Num value of {Num} cannot be negative");
+            }
+
+            //if (ErrorList.Count() == 0)
+            if (ModelState.IsValid)
+            {
+                FeedBack = "Your data was valid.";
+            }
         }
     }
 }

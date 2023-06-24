@@ -64,22 +64,25 @@ Controls: label, input, select, textarea and button
         represent an error line
 *@
 
-<div asp-validation-summary="All" >
+@*<div asp-validation-summary="All" >
     @if (ModelState.ErrorCount > 0)
     {
-        <p>Please review the following concerns to correct your submission:</p>
+        <p>Please review the (validation summary) following concerns to correct your submission:</p>
     }
 
-    @if(Model.ErrorList.Count() > 0)
-    {
-        <p>Please review the following concerns to correct your submission:</p>
-        <ul>
-            @foreach(var error in Model.ErrorList)
-            {
-                <l1>@error</l1>
-            }
-        </ul>
-    }
+   
+</div>*@
+<div>
+@if (Model.ErrorList.Count() > 0)
+{
+    <p>Please review the (manual display) following concerns to correct your submission:</p>
+    <ul>
+        @foreach (var error in Model.ErrorList)
+        {
+            <l1>@error</l1>
+        }
+    </ul>
+}
 </div>
 
 <form method="post">
