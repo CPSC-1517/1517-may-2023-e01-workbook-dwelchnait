@@ -23,7 +23,7 @@ namespace WebApp.Pages.Samples
         public double Num { get; set; }
 
         [BindProperty]
-        public string MassText { get;set; }
+        public string? MassText { get;set; }
 
         [BindProperty]
         public int FavouriteCourse { get; set; } //using integer value from select
@@ -41,7 +41,57 @@ namespace WebApp.Pages.Samples
         {
         }
 
-        public void OnPostControlProcessing()
+        //the return datatype of void stays on the same page, no special action at the
+        //   end of the event method
+
+        //public void OnPostControlProcessing()
+        //{
+        //    //FeedBack = $"Number value is {Num}"
+        //    //         + $" Mass text is {MassText}"
+        //    //    + $" Favourite course with value is {FavouriteCourse}"
+        //    //    + $" Favourite course without value is {FavouriteCourseNoValueOnOption}";
+
+        //    if (Num < 0)
+        //    {
+        //        //using ModelState
+        //        ModelState.AddModelError("",$"Num value of {Num} cannot be negative");
+
+        //        //managing your own errors
+        //        ErrorList.Add($"Num value of {Num} cannot be negative");
+        //    }
+        //    if (string.IsNullOrWhiteSpace(MassText))
+        //    {
+        //        //using ModelState
+        //        ModelState.AddModelError("", $"Comment not supplied");
+
+        //        //managing your own errors
+        //        ErrorList.Add($"Comment not supplied");
+        //    }
+        //    if (FavouriteCourse == 0)
+        //    {
+        //        //using ModelState
+        //        ModelState.AddModelError("", $"You did not pick a favourite course");
+
+        //        //managing your own errors
+        //        ErrorList.Add($"You did not pick a favourite course");
+        //    }
+        //    //if (ErrorList.Count() == 0)
+        //    if (ModelState.IsValid)
+        //    {
+        //        FeedBack = "Your data was valid.";
+        //    }
+        //}
+        public IActionResult OnPostRedirectPage()
+        {
+            //IActionResult requires the event to have a return statement with
+            //  some type of action
+            //In this example the action is to redirect to the page supplied as the
+            //  supplied parameter value
+            //An alternative to using IActionResult to stay on the same page is to
+            //  use return Page;
+            return RedirectToPage("BasicEvents");
+        }
+        public IActionResult OnPostControlProcessing()
         {
             //FeedBack = $"Number value is {Num}"
             //         + $" Mass text is {MassText}"
@@ -51,17 +101,36 @@ namespace WebApp.Pages.Samples
             if (Num < 0)
             {
                 //using ModelState
-                ModelState.AddModelError("",$"Num value of {Num} cannot be negative");
+                ModelState.AddModelError("", $"Num value of {Num} cannot be negative");
 
                 //managing your own errors
                 ErrorList.Add($"Num value of {Num} cannot be negative");
             }
+            if (string.IsNullOrWhiteSpace(MassText))
+            {
+                //using ModelState
+                ModelState.AddModelError("", $"Comment not supplied");
 
+                //managing your own errors
+                ErrorList.Add($"Comment not supplied");
+            }
+            if (FavouriteCourse == 0)
+            {
+                //using ModelState
+                ModelState.AddModelError("", $"You did not pick a favourite course");
+
+                //managing your own errors
+                ErrorList.Add($"You did not pick a favourite course");
+            }
             //if (ErrorList.Count() == 0)
             if (ModelState.IsValid)
             {
                 FeedBack = "Your data was valid.";
             }
+            return Page(); //this statement is required because we changed the return datatype
+                           //   from void to IActionResult.
+                           //the action is to stay on the same page.
         }
+
     }
 }

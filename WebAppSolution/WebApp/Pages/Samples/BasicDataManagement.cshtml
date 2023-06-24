@@ -79,7 +79,7 @@ Controls: label, input, select, textarea and button
     <ul>
         @foreach (var error in Model.ErrorList)
         {
-            <l1>@error</l1>
+            <l1>@error</l1><br/>
         }
     </ul>
 }
@@ -92,7 +92,7 @@ Controls: label, input, select, textarea and button
     </label>
     <label>
         TextArea for large amounts of text (ie comments):
-        <textarea asp-for="MassText" rows="5" cols="60"></textarea>
+        <textarea asp-for="MassText" rows="5" cols="60" ></textarea>
     </label>
     <label>
         Select a favorite course from the dropdown list (select control):
@@ -116,6 +116,8 @@ Controls: label, input, select, textarea and button
     </label>
     <br/><br/>
     <button type="submit" asp-page-handler="ControlProcessing">Submit Form Data</button>
+    &nbsp;&nbsp;
+    <button type="submit" asp-page-handler="RedirectPage">Go to Basic Events</button>
 </form>
 <br /><br/>
 Processing Results: @Model.FeedBack
