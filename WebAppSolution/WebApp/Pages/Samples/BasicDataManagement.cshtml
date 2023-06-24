@@ -64,14 +64,14 @@ Controls: label, input, select, textarea and button
         represent an error line
 *@
 
-@*<div asp-validation-summary="All" >
+<div asp-validation-summary="All" >
     @if (ModelState.ErrorCount > 0)
     {
         <p>Please review the (validation summary) following concerns to correct your submission:</p>
     }
 
    
-</div>*@
+</div>
 <div>
 @if (Model.ErrorList.Count() > 0)
 {
