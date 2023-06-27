@@ -64,7 +64,7 @@ Controls: label, input, select, textarea and button
         represent an error line
 *@
 
-<div asp-validation-summary="All" >
+<div asp-validation-summary="All" class="danger_color error_area_color">
     @if (ModelState.ErrorCount > 0)
     {
         <p>Please review the (validation summary) following concerns to correct your submission:</p>
@@ -88,45 +88,52 @@ Controls: label, input, select, textarea and button
     to do this we with use a span tag and a helper tag of asp-validation-for
     the helper will point to the property that the input field is associated with
 *@
-<form method="post">
-    <label>
-        Enter a number (standard text box control):
-        <input type="number" asp-for="Num" step="0.01" min="0.0"/>
-        <span asp-validation-for="Num"></span>
-    </label>
-    <label>
-        TextArea for large amounts of text (ie comments):
-        <textarea asp-for="MassText" rows="5" cols="60" ></textarea>
-        <span asp-validation-for="MassText"></span>
-    </label>
-    <label>
-        Select a favorite course from the dropdown list (select control):
-        <select asp-for="FavouriteCourse">
-            <option value="0">on screen prompt line ....</option>
-            <option value="1008">Digital Media Tools</option>
-            <option value="1012">Programming Fundamentals</option>
-            <option value="1017">Web Design Fundamentals</option>
-            <option value="1517">Introduction to Web Applications</option>
-        </select>
-        <span asp-validation-for="FavouriteCourse"></span>
-    </label>
-    <label>
-        Using a select without a value on the option tag:
-        <select asp-for="FavouriteCourseNoValueOnOption">
-            <option>on screen prompt line ....</option>
-            <option>Digital Media Tools</option>
-            <option>Programming Fundamentals</option>
-            <option>Web Design Fundamentals</option>
-            <option>Introduction to Web Applications</option>
-        </select>
-    </label>
-    <br/><br/>
-    <button type="submit" asp-page-handler="ControlProcessing">Submit Form Data</button>
-    &nbsp;&nbsp;
-    @* to surpress HTML5 validation that is on the control explicitly, you can add the
-        attribute formnovalidate to the button
-    *@
-    <button type="submit" asp-page-handler="RedirectPage" formnovalidate>Go to Basic Events</button>
+<form method="post" class="setflex">
+    <div class="onehalf">
+        <label>
+            Enter a number (standard text box control): 
+        </label>
+        <input type="number" asp-for="Num" step="0.01" class="smallbox"/>
+        <span asp-validation-for="Num" class="danger_color"></span>
+        
+        <label>
+            TextArea for large amounts of text (ie comments):
+            <textarea asp-for="MassText" rows="5" cols="60" ></textarea>
+            <span asp-validation-for="MassText" class="danger_color"></span>
+        </label>
+    </div>
+    <div class="onehalf">
+        <label>
+            Select a favorite course from the dropdown list (select control):
+        </label>
+            <select asp-for="FavouriteCourse" class="mediumbox">
+                <option value="0">on screen prompt line ....</option>
+                <option value="1008">Digital Media Tools</option>
+                <option value="1012">Programming Fundamentals</option>
+                <option value="1017">Web Design Fundamentals</option>
+                <option value="1517">Introduction to Web Applications</option>
+            </select>
+            <span asp-validation-for="FavouriteCourse" class="danger_color"></span>
+       
+        <label>
+            Using a select without a value on the option tag:
+        </label>
+            <select asp-for="FavouriteCourseNoValueOnOption" class="bigbox">
+                <option>on screen prompt line ....</option>
+                <option>Digital Media Tools</option>
+                <option>Programming Fundamentals</option>
+                <option>Web Design Fundamentals</option>
+                <option>Introduction to Web Applications</option>
+            </select>
+        
+        <br/><br/>
+        <button type="submit" asp-page-handler="ControlProcessing">Submit Form Data</button>
+        &nbsp;&nbsp;
+        @* to surpress HTML5 validation that is on the control explicitly, you can add the
+            attribute formnovalidate to the button
+        *@
+        <button type="submit" asp-page-handler="RedirectPage" formnovalidate>Go to Basic Events</button>
+    </div>
 </form>
 <br /><br/>
 Processing Results: @Model.FeedBack

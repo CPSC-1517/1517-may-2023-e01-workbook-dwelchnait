@@ -1,0 +1,35 @@
+﻿.danger_color{
+    color: firebrick;
+    font-weight:bolder;
+}
+
+.error_area_color{
+   background-color:thistle;
+}
+
+/*changing the width of your page*/
+
+:root {
+    --max-body-width: 80rem;
+}
+
+.setflex{
+    display:flex;
+}
+
+.onehalf{
+    width:47%;
+    margin-right:3%
+}
+
+.smallbox{
+    width:60px;
+}
+
+.mediumbox {
+    width: 180px;
+}
+
+.bigbox {
+    width: 300px;
+}
