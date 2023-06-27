@@ -84,15 +84,20 @@ Controls: label, input, select, textarea and button
     </ul>
 }
 </div>
-
+@* validation error messages can be place with the coresponding input field.
+    to do this we with use a span tag and a helper tag of asp-validation-for
+    the helper will point to the property that the input field is associated with
+*@
 <form method="post">
     <label>
         Enter a number (standard text box control):
-        <input type="number" asp-for="Num" step="0.01"/>
+        <input type="number" asp-for="Num" step="0.01" min="0.0"/>
+        <span asp-validation-for="Num"></span>
     </label>
     <label>
         TextArea for large amounts of text (ie comments):
         <textarea asp-for="MassText" rows="5" cols="60" ></textarea>
+        <span asp-validation-for="MassText"></span>
     </label>
     <label>
         Select a favorite course from the dropdown list (select control):
@@ -103,6 +108,7 @@ Controls: label, input, select, textarea and button
             <option value="1017">Web Design Fundamentals</option>
             <option value="1517">Introduction to Web Applications</option>
         </select>
+        <span asp-validation-for="FavouriteCourse"></span>
     </label>
     <label>
         Using a select without a value on the option tag:
@@ -117,7 +123,10 @@ Controls: label, input, select, textarea and button
     <br/><br/>
     <button type="submit" asp-page-handler="ControlProcessing">Submit Form Data</button>
     &nbsp;&nbsp;
-    <button type="submit" asp-page-handler="RedirectPage">Go to Basic Events</button>
+    @* to surpress HTML5 validation that is on the control explicitly, you can add the
+        attribute formnovalidate to the button
+    *@
+    <button type="submit" asp-page-handler="RedirectPage" formnovalidate>Go to Basic Events</button>
 </form>
 <br /><br/>
 Processing Results: @Model.FeedBack
