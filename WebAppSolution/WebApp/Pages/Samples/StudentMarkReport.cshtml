@@ -1,0 +1,64 @@
+﻿@page
+@model WebApp.Pages.Samples.StudentMarkReportModel
+@{
+    ViewData["Title"] = "File IO - Read";
+}
+<h1>File IO - Read </h1>
+
+
+@if (ModelState.ErrorCount > 0)
+{
+    <div asp-validation-summary="All" class="danger_color error_area_color">
+        <p>Please review the (validation summary) following concerns to correct your submission:</p>
+    </div>
+}
+
+@if (Model.HasFeedback)
+{
+    <p>@Model.Feedback</p>
+}
+
+@***************************************
+
+demo of tabular display
+a) check that we have at least a physical instance of the collection, if not, referencing
+       the property will cause an abort
+b) check that we have something to display
+   - if not, display an appropriate message
+   - if there is content, display the content in a table
+
+****************************************@
+
+@if (Model.studentMarks != null)
+{
+    if (Model.studentMarks.Count() == 0)
+    {
+        <p class="danger_color">There is no data to report</p>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Assessment</th>
+                    <th>Ass#</th>
+                    <th>Mark</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.studentMarks)
+                {
+                    <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Assessment</td>
+                        <td>@item.AssessmentVersion</td>
+                        <td>@item.Mark</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}

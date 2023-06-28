@@ -1,0 +1,6 @@
+﻿Ima,Student,1,1,68.5
+Ima,Student,1,2,72.0
+Ima,Student,2,1,55.8
+Lowand,Behold,1,1,88.5
+Lowand,Behold,1,2,82.7
+Lowand,Behold,2,1,95.8
