@@ -1,6 +1,8 @@
-﻿Ima,Student,1,1,68.5
-Ima,Student,1,2,72.0
-Ima,Student,2,1,55.8
-Lowand,Behold,1,1,88.5
+﻿Ima,Stewdent,1,1,68.5
+Ima,Stewdent,1,2,72.0
+Ima,Stewdent,2,1,55.8
+Lowand,Behold,1,88.5
 Lowand,Behold,1,2,82.7
 Lowand,Behold,2,1,95.8
+Shirley,Ujest,1,33.6
+Kandy,Kane,1,1,67.8
