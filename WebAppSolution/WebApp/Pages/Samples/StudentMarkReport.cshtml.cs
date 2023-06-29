@@ -30,7 +30,7 @@ namespace WebApp.Pages.Samples
 
             //get the path to your web app root
             string contentPathname = _webHostEnvironment.ContentRootPath;
-            string filePathname = Path.Combine(contentPathname, @"Data\StudentMark.txt");
+            string filePathname = Path.Combine(contentPathname, @"Data\StudentMarks.txt");
 
             //userdata will contain all of the data file records in an array
             Array userdata = null;
