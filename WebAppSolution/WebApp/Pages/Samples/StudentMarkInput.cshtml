@@ -1,0 +1,60 @@
+﻿@page
+@model WebApp.Pages.Samples.StudentMarkInputModel
+@{
+    ViewData["Title"] = "File IO - Write";
+}
+<h1>File IO - Write </h1>
+
+
+@if (ModelState.ErrorCount > 0)
+{
+        <div asp-validation-summary="All" class="danger_color error_area_color">
+            <p>Please review the (validation summary) following concerns to correct your submission:</p>
+        </div>
+}
+
+@if (Model.HasFeedback)
+{
+        <p>@Model.Feedback</p>
+}
+
+<form method="post">
+    <label>
+        First Name
+        <input type="text" asp-for="FirstName" class="bigbox" />
+    </label>
+    <span asp-validation-for="FirstName" class="danger_color"></span>
+    <label>
+        Last Name
+        <input type="text" asp-for="LastName" class="bigbox" />
+    </label>
+    <span asp-validation-for="LastName" class="danger_color"></span>
+    <label>
+        Assessments
+        <select asp-for="Assessment" class="bigbox">
+            <option value="0">select ...</option>
+            @foreach(var item in Model.assessmentList)
+            {
+                <option value="@item.Id">@item.Description</option>   
+            }
+        </select>
+    </label>
+    <span asp-validation-for="Assessment" class="danger_color"></span>
+    <label>
+        Version
+        <input type="number" asp-for="AssessmentVersion" class="smallbox" />
+    </label>
+    <span asp-validation-for="AssessmentVersion" class="danger_color"></span>
+    <label>
+        Mark
+        <input type="number" asp-for="Mark" step="0.1" class="mediumbox" />
+    </label>
+    <span asp-validation-for="Mark" class="danger_color"></span>
+    <br/>
+    <button type="submit" asp-page-handler="Record">Record</button>&nbsp;&nbsp;
+    <button type="submit" formnovalidate asp-page-handler="Clear"
+       onclick="return confirm('Clearing will lose the entered data unless saved. Continue?')">Clear</button>&nbsp;&nbsp;
+    <button type="submit" formnovalidate asp-page-handler="RedirectToReport"
+       onclick="return confirm('Go to Report will lose the entered data unless saved. Continue?')">Report
+    </button>
+</form>
