@@ -13,21 +13,23 @@ namespace WebApp.Pages.Samples
         public IWebHostEnvironment _webHostEnvironment { get; set; }
 
         public List<Assessment> assessmentList { get; set; } = new List<Assessment>();
+
+        [BindProperty]
         public StudentMarks studentRecord { get; set; }
       
-        [BindProperty]
-        public string? FirstName { get; set; }
-        [BindProperty]
-        public string? LastName { get; set; }
+        //[BindProperty]
+        //public string? FirstName { get; set; }
+        //[BindProperty]
+        //public string? LastName { get; set; }
 
-        [BindProperty]
-        public int Assessment { get; set; }
+        //[BindProperty]
+        //public int Assessment { get; set; }
 
-        [BindProperty]
-        public int AssessmentVersion { get; set; }
+        //[BindProperty]
+        //public int AssessmentVersion { get; set; }
 
-        [BindProperty]
-        public double Mark { get; set; }
+        //[BindProperty]
+        //public double Mark { get; set; }
 
         public StudentMarkInputModel(IWebHostEnvironment env)
         {
@@ -58,18 +60,52 @@ namespace WebApp.Pages.Samples
 
         public IActionResult OnPostRecord()
         {
-           
-           
+            //form validation
+            if (string.IsNullOrWhiteSpace(studentRecord.LastName))
+            {
+                ModelState.AddModelError("studentRecord.LastName", "Last Name is required.");
+            }
+            if (studentRecord.Assessment == 0) 
+            {
+                ModelState.AddModelError("studentRecord.Assessment", "You have not selected an assessment.");
+            }
+            
+            //check if the data has passed all validation
+            if (ModelState.IsValid)
+            {
+                //build an instance of student mark
+                //studentRecord = new StudentMarks()
+                //{
+                //    FirstName = FirstName,
+                //    LastName = LastName,
+                //    Assessment = Assessment,
+                //    AssessmentVersion = AssessmentVersion,
+                //    Mark = Mark
+
+                //};
+                string recordAndEndOfLine = studentRecord.ToString() + "\n";
+
+                //next is to access and write the string to a data file.
+                //get the path to your web app root
+                string contentPathname = _webHostEnvironment.ContentRootPath;
+                string filePathname = Path.Combine(contentPathname, @"Data\StudentMarks.txt");
+
+                //append to the file
+                //if the file does not exist, it will be created for me
+                System.IO.File.AppendAllText(filePathname, recordAndEndOfLine);
+            }
+            PopulateAssessment();
             return Page();
         }
         public IActionResult OnPostClear()
         {
             ModelState.Clear();
-            FirstName = null;
-            LastName = null;
-            Assessment = 0;
-            AssessmentVersion = 0;
-            Mark = 0;
+            studentRecord = null;
+            //FirstName = null;
+            //LastName = null;
+            //Assessment = 0;
+            //AssessmentVersion = 0;
+            //Mark = 0;
             //since the server does not remember anything that was done on this page
             //      the last time it was processed, you are required ensure all required
             //      data for the page is present

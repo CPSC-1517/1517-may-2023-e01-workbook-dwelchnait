@@ -21,35 +21,37 @@
 <form method="post">
     <label>
         First Name
-        <input type="text" asp-for="FirstName" class="bigbox" />
+        <input type="text" asp-for="studentRecord.FirstName" class="bigbox" />
     </label>
-    <span asp-validation-for="FirstName" class="danger_color"></span>
+    <span asp-validation-for="studentRecord.FirstName" class="danger_color"></span>
     <label>
         Last Name
-        <input type="text" asp-for="LastName" class="bigbox" />
+        <input type="text" asp-for="studentRecord.LastName" class="bigbox" />
     </label>
-    <span asp-validation-for="LastName" class="danger_color"></span>
+    <span asp-validation-for="studentRecord.LastName" class="danger_color"></span>
     <label>
         Assessments
-        <select asp-for="Assessment" class="bigbox">
+        <select asp-for="studentRecord.Assessment" class="bigbox">
             <option value="0">select ...</option>
             @foreach(var item in Model.assessmentList)
             {
-                <option value="@item.Id">@item.Description</option>   
+                 <option value="@item.Id"
+                        selected=@(Model.studentRecord != null && Model.studentRecord.Assessment == item.Id)>
+                        @item.Description</option>
             }
         </select>
     </label>
-    <span asp-validation-for="Assessment" class="danger_color"></span>
+    <span asp-validation-for="studentRecord.Assessment" class="danger_color"></span>
     <label>
         Version
-        <input type="number" asp-for="AssessmentVersion" class="smallbox" />
+        <input type="number" asp-for="studentRecord.AssessmentVersion" class="smallbox" />
     </label>
-    <span asp-validation-for="AssessmentVersion" class="danger_color"></span>
+    <span asp-validation-for="studentRecord.AssessmentVersion" class="danger_color"></span>
     <label>
         Mark
-        <input type="number" asp-for="Mark" step="0.1" class="mediumbox" />
+        <input type="number" asp-for="studentRecord.Mark" step="0.1" class="mediumbox" />
     </label>
-    <span asp-validation-for="Mark" class="danger_color"></span>
+    <span asp-validation-for="studentRecord.Mark" class="danger_color"></span>
     <br/>
     <button type="submit" asp-page-handler="Record">Record</button>&nbsp;&nbsp;
     <button type="submit" formnovalidate asp-page-handler="Clear"

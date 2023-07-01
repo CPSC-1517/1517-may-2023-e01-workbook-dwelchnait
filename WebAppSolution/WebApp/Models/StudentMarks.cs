@@ -20,6 +20,10 @@
             Mark = mark;
         }
 
+        public override string ToString()
+        {
+            return $"{FirstName},{LastName},{Assessment},{AssessmentVersion},{Mark}";
+        }
         public static StudentMarks Parse(string text)
         {
             string[] items = text.Split(",");
