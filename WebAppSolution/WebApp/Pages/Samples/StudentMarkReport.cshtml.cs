@@ -12,25 +12,23 @@ namespace WebApp.Pages.Samples
 
         public List<StudentMarks> studentMarks { get; set; } = new List<StudentMarks>();
 
-        // dependency injection (constructor injection technique)
-        // a) create a constructor for your pagemodel class
-        // b) the services you wish to inject will be parameters on the constructor
-        // c) save the incoming parameter values in a public property
+        
 
-        public IWebHostEnvironment _webHostEnvironment { get; set; }
-        public StudentMarkReportModel(IWebHostEnvironment env) 
-        { 
-            _webHostEnvironment = env;
-        }
+     
         public void OnGet()
         {
             //the student mark report will be loaded as the page comes up for the
             //  first time.
             //therefore, all code will be in the OnGet() event
 
-            //get the path to your web app root
-            string contentPathname = _webHostEnvironment.ContentRootPath;
-            string filePathname = Path.Combine(contentPathname, @"Data\StudentMarks.txt");
+            //use relative addressing to access the data file within your web site
+            //using this technique will allow us to skip the injection dependency for IWebHostEnvironment
+            //it is important the your practice good addressing by including the . (dot) indicating the
+            //      current folder which in this case is the top of the web site.
+
+           
+            //string filePathname =  @".\Data\StudentMarks.txt";
+            string filePathname = @".\Data\StudentMark.txt";
 
             //userdata will contain all of the data file records in an array
             Array userdata = null;

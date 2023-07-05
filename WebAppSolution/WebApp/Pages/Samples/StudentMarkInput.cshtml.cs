@@ -10,13 +10,13 @@ namespace WebApp.Pages.Samples
     {
         public string Feedback { get; set; }
         public bool HasFeedback { get { return !string.IsNullOrWhiteSpace(Feedback); } }
-        public IWebHostEnvironment _webHostEnvironment { get; set; }
+       
 
         public List<Assessment> assessmentList { get; set; } = new List<Assessment>();
 
         [BindProperty]
         public StudentMarks studentRecord { get; set; }
-      
+
         //[BindProperty]
         //public string? FirstName { get; set; }
         //[BindProperty]
@@ -31,6 +31,12 @@ namespace WebApp.Pages.Samples
         //[BindProperty]
         //public double Mark { get; set; }
 
+        // dependency injection (constructor injection technique)
+        // a) create a constructor for your pagemodel class
+        // b) the services you wish to inject will be parameters on the constructor
+        // c) save the incoming parameter values in a public property
+
+        public IWebHostEnvironment _webHostEnvironment { get; set; }
         public StudentMarkInputModel(IWebHostEnvironment env)
         {
             _webHostEnvironment = env;

@@ -1,0 +1,12 @@
+﻿Ima,Stewdent,1,1,68.5
+Ima,Stewdent,1,2,72.0
+Ima,Stewdent,2,1,55.8
+Lowand,Behold,1,88.5
+Lowand,Behold,1,2,82.7
+Lowand,Behold,2,1,95.8
+Shirley,Ujest,1,33.6
+Kandy,Kane,1,1,67.8
+Donald,Welch,2,1,78.3
+Goodon,Charity,2,1,93.6
+keith,Nehme,4,1,100
+hope,charity,1,1,98
