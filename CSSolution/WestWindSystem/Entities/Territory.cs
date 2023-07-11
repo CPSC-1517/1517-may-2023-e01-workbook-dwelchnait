@@ -15,8 +15,8 @@ namespace WestWindSystem.Entities
             Employees = new HashSet<Employee>();
         }
 
-        [Key]
-        [StringLength(20)]
+        [Key,DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [StringLength(20,MinimumLength =1,ErrorMessage ="TeritoryID is required, max length 20 characters")]
         public string TerritoryID { get; set; }
         [Required]
         [StringLength(50)]

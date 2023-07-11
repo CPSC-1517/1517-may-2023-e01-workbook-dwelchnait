@@ -17,8 +17,9 @@ namespace WestWindSystem.Entities
 
         [Key]
         public int RegionID { get; set; }
-        [Required]
-        [StringLength(50)]
+        //validation annotations
+        [Required(ErrorMessage ="Region Description is required")]
+        [StringLength(50,ErrorMessage ="Region Description is limited to 50 characters")]
         public string RegionDescription { get; set; }
 
         [InverseProperty("Region")]
